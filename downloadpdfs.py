@@ -62,11 +62,14 @@ for i in range(len(links)):
 	"""
 
 	suburl = root_url + links[i]
-	bookname = links[i][:-1] # remove the last character which is '/' 
+	bookname = links[i][:-1] + '.pdf' # remove the last character which is '/' 
 	pdflink = suburl + getLinks(suburl,count=1)[0] # first link points to the pdf link
 
+	if os.path.isfile(bookname):
+		print(bookname +  ' file already exists')
+		continue
 	print('Downloading ' + pdflink  + ' ....')
-	obj = SmartDL(pdflink,'./' + bookname + '.pdf') # download and save in the current working directory
+	obj = SmartDL(pdflink,'./' + bookname) # download and save in the current working directory
 	obj.start()
 
 
